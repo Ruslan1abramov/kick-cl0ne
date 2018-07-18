@@ -1,16 +1,24 @@
 var mongoose = require("mongoose");
 var Project = require("./models/project");
 var Comment   = require("./models/comment");
+/*
+[ { _id: 5b4f39c9f248ff3127e17870, username: '1', __v: 0 },
+  { _id: 5b4f6ac392e9eb39d82cf256, username: '2', __v: 0 },
+  { _id: 5b4fa3ca8dbdcb4eac403f7a, username: 'rus', __v: 0 },
+  { _id: 5b4fa57a8e01295067611321, username: 'tatata', __v: 0 },
+  { _id: 5b4fa5b853d7ce519a155663, username: 'tart', __v: 0 },
+  { _id: 5b4fa64405223351dc106ab9, username: 'er', __v: 0 } ]
 
+*/
 var data = [
-    {
+    {   
         name: "coffee machine", 
         image: "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
         description: "blah blah blah",
         endTime: "Sep 1, 2018 15:37:25"
     },
     
-    {
+    {   
         owner:          "String",
         name:            "String",
         image:           "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
@@ -24,7 +32,7 @@ var data = [
 
     },
 
-    {
+    {   
         name: "Car", 
         image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
         description: "blah blah blah",
