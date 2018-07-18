@@ -4,7 +4,7 @@
  <div class="container">
      <header class="jumbotron">
          <div class="container">
-             <h1>Welcome To KickClone!</h1>
+             <h1>Welcome To KickCl0ne!</h1>
              <p>View our projects from all over the world</p>
              <p>
                 <a class="btn btn-primary btn-large" href="/projects/new">Add a New project</a>
@@ -20,9 +20,14 @@
                    <div class="caption">
                        <h4><%= project.name %></h4>
                    </div>
-
-					<p id="demo_<%=pid%>"></p>
-
+	                   	<span> Time Left
+							<font color = "red" size='sm'> 
+									<label id="demo_<%=pid%>"></label>
+							</font>
+						</span>
+					<div class="caption">
+                       <h5>Raised $<%= project.moneyRaised %> Out of $<%= project.moneyToRaise %></h5>
+                   </div>	
                    <p>
                        <a href="/projects/<%= project._id %>" class="btn btn-primary">More Info</a>
                    </p>

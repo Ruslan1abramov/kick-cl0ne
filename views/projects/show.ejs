@@ -4,46 +4,16 @@
     <div class="row">
         <div class="col-md-3">
             <div class="list-group">
-                <li class="list-group-item active">Project name: &nbsp&nbsp&nbsp&nbsp	<%=project.name%></li>
+                <li class="list-group-item active">Project name: &nbsp&nbsp&nbsp&nbsp   <%=project.name%></li>
                 <li class="list-group-item">Project owner: &nbsp&nbsp&nbsp&nbsp  <%=project.owner%> </li>
                 <li class="list-group-item">Donate: &nbsp&nbsp&nbsp&nbsp
-	                <form class="form-inline" action="/projects/<%= project._id %>" method="POST">
+                    <form class="form-inline" action="/projects/<%= project._id %>" method="POST">
                         <input class="form-control" type="number" name="donation" placeholder="Donate to project" value=0>
-	                	<button class="btn btn-sm btn-success">Apply Donation!</button
-                	</form>
+                        <button class="btn btn-sm btn-success">Apply Donation!</button
+                    </form>
                 </li>
                 <li class="list-group-item">Time Left
                 <p id="demo"></p></li>
-					<script>
-					// Set the date we're counting down to
-					var countDownDate = new Date("<%=project.endTime%>").getTime();
-
-					// Update the count down every 1 second
-					var x = setInterval(function() {
-
-					    // Get todays date and time
-					    var now = new Date().getTime();
-					    
-					    // Find the distance between now an the count down date
-					    var distance = countDownDate - now;
-					    
-					    // Time calculations for days, hours, minutes and seconds
-					    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-					    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-					    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-					    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-					    
-					    // Output the result in an element with id="demo"
-					    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-					    + minutes + "m " + seconds + "s ";
-					    
-					    // If the count down is over, write some text 
-					    if (distance < 0) {
-					        clearInterval(x);
-					        document.getElementById("demo").innerHTML = "EXPIRED";
-					    }
-						}, 1000);
-					</script>
             </div>
         </div>
         <div class="col-md-9">
@@ -53,6 +23,16 @@
                     <h4 class="pull-right">Raised $<%= project.moneyRaised %> From $<%= project.moneyToRaise %> Goal</h4>
                     <h4><a><%=project.name%></a></h4>
                     <p><%= project.description %></p>
+                    <p>
+                        <em>Submitted By <%= project.author.username %></em>
+                    </p>
+                    <% if(currentUser && project.author.id.equals(currentUser._id)){ %>
+                        
+                        <a class="btn btn-xs btn-warning" href="/projects/<%= project._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/projects/<%= project._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% }%>
                 </div>
             </div>
             <div class="well">
@@ -68,11 +48,22 @@
                             <p>
                                 <%= comment.text %> 
                             </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/projects/<%=project._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/projects/<%=project._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                        <% } %>
                         </div>
                     </div>
                 <% }) %>
             </div>
         </div>
     </div>
+<script>
+    var project = <%- JSON.stringify(project) %>
+</script>
+<script src="/scripts/timerShow.js"></script>
 
 <% include ../partials/footer %>
