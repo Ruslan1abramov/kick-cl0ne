@@ -1,0 +1,85 @@
+body {
+  background-color: #000;
+}
+
+#landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 40vh;
+}
+
+#landing-header h1 {
+  color: #fff;
+}
+#landing-header h2 {
+  color: #fff;
+}
+
+.slideshow { 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite; 
+}
+
+.slideshow li:nth-child(1) { 
+  background-image: url(https://ksr-ugc.imgix.net/assets/017/217/981/df4d93e9f6f045bb20387235eb5cc3b8_original.png?crop=faces&w=1552&h=873&fit=crop&v=1499191269&auto=format&q=92&s=6c3efda764552c07273ee6baab71306a) 
+}
+.slideshow li:nth-child(2) { 
+  background-image: url(https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/11/Zano-drone-1200x600.jpg);
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(https://cadeauconsultant.nl/wp-content/uploads/2017/12/Ostrich-Pillow-voor-haar-cadeau.jpg);
+  animation-delay: 20s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(https://ksr-ugc.imgix.net/assets/011/364/958/aa5f379413c838d66ce78eee5fae97ce_original.jpg?crop=faces&w=1552&h=873&fit=crop&v=1463681578&auto=format&q=92&s=f8f838d2e9c69ede3524ff9b56356553);
+  animation-delay: 30s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(https://ksr-ugc.imgix.net/assets/014/865/737/22a6a55508e9f4bffd51cf22baaf26ab_original.png?crop=faces&w=1552&h=873&fit=crop&v=1505855621&auto=format&q=92&s=58b912f528ea1db176eb0faa7c47f288);
+  animation-delay: 40s; 
+}
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
