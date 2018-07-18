@@ -1,0 +1,11 @@
+<% include ./partials/header %> 
+
+<h1>Login Failed!</h1>
+<p><h4>Username or Password are unvalid</p></h4>
+<form action="/login" method="POST">
+    <input type="text" name="username" placeholder="username">
+    <input type="password" name="password" placeholder="password">
+    <input type="submit" value="Login!">
+</form>
+
+<% include ./partials/footer %> 

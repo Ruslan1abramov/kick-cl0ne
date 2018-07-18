@@ -1,0 +1,41 @@
+<% include ../partials/header %>
+
+
+ <div class="container">
+     <header class="jumbotron">
+         <div class="container">
+             <h1>Welcome To KickClone!</h1>
+             <p>View our projects from all over the world</p>
+             <p>
+                <a class="btn btn-primary btn-large" href="/projects/new">Add a New project</a>
+             </p>
+         </div>
+     </header>
+     
+     <div id="ruslan" class="row text-center" x-ta="<%= projects.length %>" style="display:flex; flex-wrap: wrap;">
+        <% projects.forEach(function(project, pid){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                   <img src="<%= project.image %>">
+                   <div class="caption">
+                       <h4><%= project.name %></h4>
+                   </div>
+
+					<p id="demo_<%=pid%>"></p>
+
+                   <p>
+                       <a href="/projects/<%= project._id %>" class="btn btn-primary">More Info</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+        <script>
+        var projects = <%- JSON.stringify(projects) %>
+        </script>
+        <script src="/scripts/timer.js"></script>
+    </div>
+</div>
+
+
+
+<% include ../partials/footer %>
