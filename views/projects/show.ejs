@@ -9,7 +9,7 @@
                 <li class="list-group-item">Donate: &nbsp&nbsp&nbsp&nbsp
                     <form class="form-inline" action="/projects/<%= project._id %>" method="POST">
                         <input class="form-control" type="number" name="donation" placeholder="Donate to project" value=0>
-                        <button class="btn btn-sm btn-success">Apply Donation!</button
+                        <button class="btn btn-sm btn-success">Apply Donation!</button>
                     </form>
                 </li>
                 <li class="list-group-item">Time Left
@@ -49,6 +49,27 @@
                     <% }%>
                 </div>
             </div>
+            <div class="thumbnail">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="<%= project.video %>"></iframe>
+                </div>
+                <h5><a href="<%= project.link %>">For more information</a></h5>
+                <% if(project.morePictures.length >0 ) { %>
+                    <h4>Here are some more pictures</h4>
+                    <div class="row">
+                    <% project.morePictures.forEach(function(pic){ %>
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                <a href="pic" target="_blank">
+                                    <img src="pic" alt="pic" style="width:100%">
+                                    <div class="caption"></div>
+                                </a>
+                            </div>
+                        </div>
+                    <%})%>
+                    </div>
+                <%}%>
+            </div>
             <div class="well">
                 <div class="text-right">
                     <a class="btn btn-success" href="/projects/<%= project._id %>/comments/new">Add New Comment</a>
@@ -75,6 +96,7 @@
             </div>
         </div>
     </div>
+</div>
 <script>
     var project = <%- JSON.stringify(project) %>
 </script>

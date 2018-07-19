@@ -12,8 +12,10 @@ var projectSchema = new mongoose.Schema({
    endTime: 		Date,
    moneyToRaise: 	Number,
    moneyRaised: 	Number,
-   isActive:      Boolean,
+   isActive:        Boolean,
    donors: 			[String],
+   morePictures:    [String],
+
    author: {
       id: {
          type: mongoose.Schema.Types.ObjectId,

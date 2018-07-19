@@ -9,10 +9,11 @@ var projectSchema = new mongoose.Schema({
    description: 	String,
    video: 			String,
    link: 			String,
-   moneyToRaise:  Number, 
+   moneyToRaise:    Number,
    moneyRaised: 	Number,
-   isActive:      Boolean,
+   isActive:        Boolean,
    donors: 			[String],
+   morePictures:   [String],
    author: {
       id: {
          type: mongoose.Schema.Types.ObjectId,

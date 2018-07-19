@@ -3,7 +3,7 @@
 // Update the count down every 1 second
 var x = setInterval(function() {
 	projects.forEach(function(project, pid){
-	    // Get todays date and time
+	    // Get date and time
 	    var now = new Date().getTime();
 	    
 	    // Find the distance between now an the count down date
