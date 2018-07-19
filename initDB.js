@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Project = require("./models/project");
+var Funded = require("./models/funded");
 var Comment   = require("./models/comment");
 /*
 [ { _id: 5b4f39c9f248ff3127e17870, username: '1', __v: 0 },
@@ -38,6 +39,29 @@ var data = [
         description: "blah blah blah",
         endTime: "Aug 5, 2018 15:37:25"
     }
+];
+var data2 = [
+
+    {   
+        owner:          "String",
+        name:            "String",
+        image:           "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+        description:     "bsbdsbdbsdsbdbdbdbdbd",
+        video:           "String",
+        link:            "String", 
+        moneyToRaise:    1000,
+        moneyRaised:     100000,
+        donors:          ["String"],
+    },
+
+    {   
+        name: "Car", 
+        image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+        description: "blah blah blah",
+        endTime: "Aug 5, 2018 15:37:25",
+        moneyToRaise:    1000,
+        moneyRaised:     190000
+    }
 ]
 
 function seedDB(){
@@ -73,7 +97,41 @@ function seedDB(){
                 }
             });
         });
-    }); 
+    });
+
+    //Remove all projects
+   Funded.remove({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        console.log("removed projects!");
+         //add a few Project
+        data.forEach(function(seed){
+            Funded.create(seed, function(err, project){
+                if(err){
+                    console.log(err)
+                } else {
+                    console.log("added a project");
+                    //create a comment
+                    Comment.create(
+                        {
+                            text: "This project is great",
+                            author: {username : "mr taa",
+                                     enterDate: new Date("Aug 1, 2018 15:37:25")
+                                    } 
+                        }, function(err, comment){
+                            if(err){
+                                console.log(err);
+                            } else {
+                                project.comments.push(comment);
+                                project.save();
+                                console.log("Created new comment");
+                            }
+                        });
+                }
+            });
+        });
+    });  
     //add a few comments
 }
 

@@ -2,19 +2,21 @@ var express     	= require("express"),
     app         	= express(),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
-    flash       = require("connect-flash"),
+    flash       	= require("connect-flash"),
     passport    	= require("passport"),
     LocalStrategy 	= require("passport-local"),
     methodOverride 	= require("method-override"),
     Project  		= require("./models/project"),
+    Project  		= require("./models/funded")
     Comment     	= require("./models/comment"),
     User        	= require("./models/user"),
     initDB			= require("./initDB");
 
 //requring routes
 var commentRoutes    = require("./routes/comments"),
-    projectRoutes = require("./routes/projects"),
-    indexRoutes      = require("./routes/index")
+    projectRoutes 	 = require("./routes/projects"),
+    indexRoutes      = require("./routes/index"),
+    fundedRoutes 	 = require("./routes/funded");
 
 mongoose.connect("mongodb://localhost/kick_clone");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -45,7 +47,9 @@ app.use(function(req, res, next){
 
 app.use("/", indexRoutes);
 app.use("/projects", projectRoutes);
-app.use("/projects/:id/comments", commentRoutes);;
+app.use("/projects/:id/comments", commentRoutes);
+app.use("/funded", fundedRoutes);
+app.use("/funded/:id/comments", commentRoutes);
 
 app.listen(process.env.PORT || '3000', process.env.IP, function(){
 	console.log("The Kick Clone server has started");
