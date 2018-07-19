@@ -1,7 +1,8 @@
-var express = require("express");
-var router  = express.Router();
-var Project = require("../models/project");
-var middleware = require("../middleware");
+var express         = require("express");
+var router          = express.Router();
+var Project         = require("../models/project");
+var middleware      = require("../middleware");
+var timeoutHandler  = require("../timeoutHandler");
 
 //INDEX - show all projects
 router.get("/", function(req,res){
@@ -35,14 +36,18 @@ router.post("/",middleware.isLoggedIn, function(req, res){
        endTime:       new Date(req.body.endTime),
        moneyToRaise:  req.body.moneyToRaise,
        moneyRaised:   0,
+       isActive:      true,
        author:        author
     }
-    // Create a new projects and save to DB
+
     Project.create(newProject, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
           console.log(newlyCreated);
+          setTimeout(function(){timeoutHandler.handleTimeOut(newlyCreated)},
+            new Date(newProject.endTime).getTime() - new Date().getTime())
+            // Create a new projects and save to DB
             //redirect back to projects page
             res.redirect("/projects");
         }

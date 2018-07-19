@@ -11,6 +11,7 @@ var projectSchema = new mongoose.Schema({
    link: 			String,
    moneyToRaise:  Number, 
    moneyRaised: 	Number,
+   isActive:      Boolean,
    donors: 			[String],
    author: {
       id: {

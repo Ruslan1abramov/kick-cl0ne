@@ -13,14 +13,15 @@ var Comment   = require("./models/comment");
 */
 var data = [
     {   
-        name: "coffee machine", 
-        image: "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
-        description: "blah blah blah",
-        endTime: "Sep 1, 2018 15:37:25"
+        name:           "coffee machine", 
+        image:          "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
+        description:    "blah blah blah",
+        endTime:         new Date(),
+        isActive:        true
     },
     
     {   
-        owner:          "String",
+        owner:           "String",
         name:            "String",
         image:           "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
         description:     "String",
@@ -29,21 +30,23 @@ var data = [
         endTime:         new Date("Aug 1, 2018 15:37:25"),
         moneyToRaise:    1000,
         moneyRaised:     0,
-        donors:          ["String"],
+        isActive:        true,
+        donors:          ["String"]
 
     },
 
     {   
-        name: "Car", 
-        image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
-        description: "blah blah blah",
-        endTime: "Aug 5, 2018 15:37:25"
+        name:            "Car", 
+        image:           "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+        description:     "blah blah blah",
+        endTime:         "Aug 5, 2018 15:37:25",
+        isActive:        true
     }
 ];
 var data2 = [
 
     {   
-        owner:          "String",
+        owner:           "String",
         name:            "String",
         image:           "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
         description:     "bsbdsbdbsdsbdbdbdbdbd",
@@ -52,15 +55,17 @@ var data2 = [
         moneyToRaise:    1000,
         moneyRaised:     100000,
         donors:          ["String"],
+        isActive:        false
     },
 
     {   
-        name: "Car", 
-        image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
-        description: "blah blah blah",
-        endTime: "Aug 5, 2018 15:37:25",
+        name:           "Car", 
+        image:          "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+        description:    "blah blah blah",
+        endTime:        "Aug 5, 2018 15:37:25",
         moneyToRaise:    1000,
-        moneyRaised:     190000
+        moneyRaised:     190000,
+        isActive:        true
     }
 ]
 
@@ -106,7 +111,7 @@ function seedDB(){
         }
         console.log("removed projects!");
          //add a few Project
-        data.forEach(function(seed){
+        data2.forEach(function(seed){
             Funded.create(seed, function(err, project){
                 if(err){
                     console.log(err)

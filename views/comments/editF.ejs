@@ -3,7 +3,7 @@
     <div class="row">
         <h1 style="text-align: center">Edit Comment</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/projects/<%= project_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+            <form action="/funded/<%= project_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     <textarea class="form-control" type="text" name="comment[text]"><%= comment.text %></textarea>
                 </div>
@@ -11,7 +11,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/projects">Go Back</a>
+            <a href="/funded">Go Back</a>
         </div>
     </div>
 </div>

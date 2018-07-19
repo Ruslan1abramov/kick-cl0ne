@@ -12,6 +12,7 @@ var projectSchema = new mongoose.Schema({
    endTime: 		Date,
    moneyToRaise: 	Number,
    moneyRaised: 	Number,
+   isActive:      Boolean,
    donors: 			[String],
    author: {
       id: {

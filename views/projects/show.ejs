@@ -13,7 +13,21 @@
                     </form>
                 </li>
                 <li class="list-group-item">Time Left
-                <p id="demo"></p></li>
+                    <p id="demo"></p>
+                </li>
+                <%if(project.donors.length > 0 ) {%> 
+                    <li class="list-group-item">
+                            <h2>Thanks To For Helping The Project</h2>
+                            <% project.donors.forEach(function(donor){ %>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <strong><%= donor %> Helped The project</strong>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </li>
+                <% } %>
+
             </div>
         </div>
         <div class="col-md-9">
