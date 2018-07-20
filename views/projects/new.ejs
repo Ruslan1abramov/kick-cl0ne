@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                  <label for="date">End Date:</label>
-                  <input type="date" name="endTime" min="<%=new Date()%>"  required>
+                  <input id = "dateField" type="date" name="endTime" required>
                 </div>
                 <div class="form-group">
                      <label for="files"> Select Project images:</label>
@@ -42,4 +42,9 @@
         </div>
     </div>
 </div>
+<script>
+    //making the project raise ens date to at least 3 days
+    document.getElementById("dateField").setAttribute("min", new Date(new Date().getTime() + 3*24* 60 *60*1000).toJSON().split('T')[0]);
+    document.getElementById("dateField").setAttribute("value", new Date(new Date().getTime() + 3*24* 60 *60*1000).toJSON().split('T')[0]);
+</script>
 <% include ../partials/footer %>

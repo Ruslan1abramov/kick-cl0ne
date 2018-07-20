@@ -85,10 +85,10 @@
                             <strong><%= comment.author.username %></strong>
                             <span class="pull-right"><%= comment.author.enterDate.toISOString().split('T')[0]; %></span>
                             <p>
-                                <%= comment.text %> 
+                                <%= comment.text %>
                             </p>
                             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                            <a class="btn btn-xs btn-warning" 
+                            <a class="btn btn-xs btn-warning"
                                href="/projects/<%=project._id %>/comments/<%=comment._id %>/edit">Edit</a>
                             <form id="delete-form" action="/projects/<%=project._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
                                 <input type="submit" class="btn btn-xs btn-danger" value="Delete">

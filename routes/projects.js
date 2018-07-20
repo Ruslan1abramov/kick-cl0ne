@@ -35,7 +35,7 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
     {
         id:           req.user._id,
         username:     req.user.username
-    }
+    };
     var newProject = {
        owner:         req.user.username,
        name:          req.body.name,
@@ -48,7 +48,7 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
        moneyRaised:   0,
        isActive:      true,
        author:        author
-    }
+    };
 
     Project.create(newProject, function(err, newlyCreated){
         if(err){
@@ -94,8 +94,9 @@ router.post("/:id",middleware.isLoggedIn, function(req, res){
     // find and update the correct project
     Project.findById(req.params.id, function(err, foundProject){
         console.log(foundProject);
-        foundProject.moneyRaised += req.body.donation;
-        foundProject.donors += req.user.username;
+        foundProject.moneyRaised += Number(req.body.donation);
+        if(!foundProject.donors.includes(req.user.username))
+            foundProject.donors.push(req.user.username);
         foundProject.save(function(err, updated){
             if(err){
                 res.redirect("/projects");

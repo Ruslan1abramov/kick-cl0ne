@@ -33,7 +33,6 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                //add username and id to comment
                comment.author.id = req.user._id;
                comment.author.username = req.user.username;
-               comment.author.enterDate = new Date().getTime();
                //save comment
                comment.save();
 
@@ -62,7 +61,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
 
 // COMMENT UPDATE
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
-   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
+   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err){
       if(err){
           res.redirect("back");
       } else {
