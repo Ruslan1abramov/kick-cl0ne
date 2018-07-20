@@ -2,12 +2,11 @@ var express         = require("express");
 var router          = express.Router();
 var Project         = require("../models/project");
 var middleware      = require("../middleware");
-var timeoutHandler  = require("../timeoutHandler");
 
 //INDEX - show all projects
 router.get("/", function(req,res){
      // Get all projects from DB
-    Project.find({}, function(err, allProjects){
+    Project.find({isActive: true}, function(err, allProjects){
        if(err){
           console.log(err);
        } else {
@@ -15,10 +14,21 @@ router.get("/", function(req,res){
        }
     });
 });
+//funded - show all projects
+router.get("/funded", function(req,res){
+    // Get all projects from DB
+    Project.find({isActive: false}, function(err, allFunded){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("projects/funded",{ funded:allFunded});
+        }
+    });
+});
 
 
 //CREATE - add new projcts to DB
-router.post("/",middleware.isLoggedIn, function(req, res){
+router.post("/insert",middleware.isLoggedIn, function(req, res){
     // get data from form and add to projects array
 
     var author = 
@@ -31,8 +41,8 @@ router.post("/",middleware.isLoggedIn, function(req, res){
        name:          req.body.name,
        image:         req.body.image,
        description:   req.body.description,
-       video:         req.body.projectVideo,
-       link:          req.body.moreInfoLink, 
+       video:         req.body.video,
+       link:          req.body.link,
        endTime:       new Date(req.body.endTime),
        moneyToRaise:  req.body.moneyToRaise,
        moneyRaised:   0,
@@ -45,8 +55,6 @@ router.post("/",middleware.isLoggedIn, function(req, res){
             console.log(err);
         } else {
           console.log(newlyCreated);
-          setTimeout(function(){timeoutHandler.handleTimeOut(newlyCreated)},
-            new Date(newProject.endTime).getTime() - new Date().getTime())
             // Create a new projects and save to DB
             //redirect back to projects page
             res.redirect("/projects");
@@ -77,6 +85,27 @@ router.get("/:id/edit", middleware.checkProjectOwnership, function(req, res){
     Project.findById(req.params.id, function(err, foundProject){
       console.log(foundProject);
         res.render("projects/edit", {project: foundProject});
+    });
+});
+
+//add donors and money raised
+router.post("/:id",middleware.isLoggedIn, function(req, res){
+
+    // find and update the correct project
+    Project.findById(req.params.id, function(err, foundProject){
+        console.log(foundProject);
+        foundProject.moneyRaised += req.body.donation;
+        foundProject.donors += req.user.username;
+        foundProject.save(function(err, updated){
+            if(err){
+                res.redirect("/projects");
+            } else {
+                //redirect somewhere(show page)
+                console.log(updated);
+                res.redirect("/projects/" + req.params.id);
+            }
+        });
+
     });
 });
 

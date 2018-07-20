@@ -3,7 +3,7 @@
     <div class="row">
         <h1 style="text-align: center">Create a New Project</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/projects" method="POST">
+            <form action="/projects/insert" method="POST">
                 <div class="form-group">
                     <input class="form-control" type="text" name="name" placeholder="Enter projects name" required>
                 </div>
@@ -22,12 +22,12 @@
                 </div>
                 <div class="form-group">
                          <span class="form-control">$
-                            <input type="number" name="moneyToRaise" placeholder="Enter the amount of money needed to be raised" value=5000 required>
+                            <input type="number" name="moneyToRaise" placeholder="Enter the amount of money needed to be raised" value=5000 min="1000" required>
                         </span>
                 </div>
                 <div class="form-group">
                  <label for="date">End Date:</label>
-                  <input type="date" name="endTime" required>
+                  <input type="date" name="endTime" min="<%=new Date()%>"  required>
                 </div>
                 <div class="form-group">
                      <label for="files"> Select Project images:</label>

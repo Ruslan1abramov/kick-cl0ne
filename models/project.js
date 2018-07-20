@@ -16,6 +16,7 @@ var projectSchema = new mongoose.Schema({
    donors: 			[String],
    morePictures:    [String],
 
+
    author: {
       id: {
          type: mongoose.Schema.Types.ObjectId,
@@ -31,5 +32,45 @@ var projectSchema = new mongoose.Schema({
    ]
 
 });
+projectSchema.index({isActive: 1, endTime: 1})
 
-module.exports = mongoose.model("Project", projectSchema);
+const Project = mongoose.model("Project", projectSchema);
+
+const TEN_MINUTES = 10 * 60 * 1000;
+setInterval(() => {
+
+    Project.find({
+        isActive: true,
+        endTime: {$lte: new Date()}
+    }).then(projectThatWereFinished => {
+        projectThatWereFinished.forEach(project => {
+           if(project.moneyRaised >= project.moneyToRaise)
+           {
+               console.log('THIS PROJECT IS DONE And Funded', project);
+               project.isActive = false;
+               project.save(function(err, updated){
+                   if(err){
+                       console.log(err);
+                   } else {
+                       console.log(updated);
+                   }
+               });
+           }
+           else
+           {
+               console.log('THIS PROJECT IS DONE And not funded', project);
+               project.remove(function(err){
+                   if(err){
+                       console.log(err);
+                   } else {
+                       console.log('project removed');;
+                   }
+               });
+           }
+
+
+        });
+    })
+}, TEN_MINUTES);
+
+module.exports = Project;
