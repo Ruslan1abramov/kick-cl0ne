@@ -21,8 +21,12 @@
                         <li><a href="/login">Login</a></li>
                         <li><a href="/register">Sign Up</a></li>
                     <% } else { %>
-                        <li><a href="#">Signed In As <%= currentUser.username %></a></li>
-                        <li><a href="/logout">Logout</a></li>
+                        <% if(currentUser.isAdmin){ %>
+                            <li><a href="#">Signed In As<strong><%= currentUser.username %></strong> </a></li>
+                        <% } else{ %>
+                        <li><a href="/admin">Signed In As <%= currentUser.username %> </a></li>
+                      <% } %>
+                    <li><a href="/logout">Logout</a></li>
                     <% } %>
                 </ul>
             </div>

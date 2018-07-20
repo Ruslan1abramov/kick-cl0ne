@@ -41,6 +41,7 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
        name:          req.body.name,
        image:         req.body.image,
        description:   req.body.description,
+        oneLiner:     req.body.oneLiner,
        video:         req.body.video,
        link:          req.body.link,
        endTime:       new Date(req.body.endTime),

@@ -9,7 +9,8 @@ var express     	= require("express"),
     Project  		= require("./models/project"),
     Comment     	= require("./models/comment"),
     User        	= require("./models/user"),
-    initDB			= require("./initDB");
+    initDB			= require("./initDB"),
+    bcrypt          = require('bcryptjs');
 
 //requring routes
 var commentRoutes    = require("./routes/comments"),

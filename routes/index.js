@@ -2,6 +2,8 @@ var express = require("express");
 var router  = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
+var bcrypt          = require('bcryptjs');
+
 
 //root route
 router.get("/", function(req, res){
@@ -26,10 +28,20 @@ router.post("/register", function(req, res){
         }
 
         passport.authenticate("local")(req, res, function(){
-          req.flash("success", "Welcome to KickCl0ne " + user.username);
-           res.redirect("/projects"); 
+            req.flash("success", "Welcome to KickCl0ne " + user.username);
+            res.redirect("/projects");
         });
     });
+});
+
+// send to admin page
+router.get("/admin", function(req, res){
+    res.render("admin");
+});
+
+//handle sign up logic
+router.post("/admin", function(req, res){
+    //TODO
 });
 
 // show login form
@@ -37,15 +49,23 @@ router.get("/login", function(req, res){
    res.render("login"); 
 });
 
-router.get("/loginFail", function(req, res){
-   res.render("loginFail"); 
-});
-// handling login logic
-router.post("/login", passport.authenticate("local", 
-    {
-        successRedirect: "/projects",
-        failureRedirect: "/loginFail"
-    }), function(req, res){
+
+// login logic: app.post("/login", middleware, callback)
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) { return next(err); }
+        if (!user) {
+            req.flash("error", "Invalid username or password");
+            return res.redirect('/login');
+        }
+        req.logIn(user, err => {
+            if (err) { return next(err); }
+            let redirectTo = req.session.redirectTo ? req.session.redirectTo : '/projects';
+            delete req.session.redirectTo;
+            req.flash("success", "Good to see you again, " + user.username);
+            res.redirect(redirectTo);
+        });
+    })(req, res, next);
 });
 
 

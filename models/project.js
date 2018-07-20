@@ -7,6 +7,7 @@ var projectSchema = new mongoose.Schema({
    name: 			String,
    image: 			String,
    description: 	String,
+   oneLiner: 	    String,
    video: 			String,
    link: 			String, 
    endTime: 		Date,
