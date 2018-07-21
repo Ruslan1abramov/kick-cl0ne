@@ -1,4 +1,6 @@
-var express     	= require("express"),
+require('dotenv').load();
+
+const express     	= require("express"),
     app         	= express(),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
@@ -10,12 +12,12 @@ var express     	= require("express"),
     Comment     	= require("./models/comment"),
     User        	= require("./models/user"),
     initDB			= require("./initDB"),
-    bcrypt          = require('bcryptjs');
+    bcrypt          = require('bcrypt');
 
 //requring routes
-var commentRoutes    = require("./routes/comments"),
-    projectRoutes 	 = require("./routes/projects"),
-    indexRoutes      = require("./routes/index");
+const   commentRoutes    = require("./routes/comments"),
+        projectRoutes 	 = require("./routes/projects"),
+        indexRoutes      = require("./routes/index");
 
 mongoose.connect("mongodb://localhost/kick_clone");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -34,15 +36,33 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+    done(null, user._id);
+});
+
+passport.deserializeUser(function(userId, done) {
+    User.findById(userId, (err, user) => done(err, user));
+});
+// Passport Local
+const local = new LocalStrategy((username, password, done) => {
+    User.findOne({ username })
+        .then(user => {
+            if (!user || !user.validPassword(password)) {
+                done(null, false, { message: "Invalid username/password" });
+            } else {
+                done(null, user, { message: "Good to have you back!" });
+            }
+        })
+        .catch(e => done(e));
+});
+passport.use("local", local);
+
 
 app.use(function(req, res, next){
-   res.locals.currentUser = req.user;
-   res.locals.error = req.flash("error");
-   res.locals.success = req.flash("success");
-   next();
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
 })
 
 
@@ -86,10 +106,10 @@ app.use(function (err, req, res, next) {
     }
 });
 
-app.use("/", indexRoutes);
+app.use("/", indexRoutes(passport));
 app.use("/projects", projectRoutes);
 app.use("/projects/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT || '3000', process.env.IP, function(){
-	console.log("The KickCl0ne server has started");
+app.listen(process.env.PORT|| '3000', process.env.IP, function(){
+    console.log("The KickCl0ne server has started");
 });

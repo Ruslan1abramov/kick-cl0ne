@@ -5,14 +5,36 @@
         <div style="width: 30%; margin: 25px auto;">
             <form action="/projects/<%= project._id %>?_method=PUT" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="project[name]" value="<%= project.name %>">
+                    <label for="name">Edit Project name:</label>
+                    <input class="form-control" id="name" type="text" name="project[name]" value="<%= project.name %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="project[image]" value="<%= project.image %>">
+                    <label for="poster">Change Project poster:</label>
+                    <input class="form-control" id="poster" type="text" name="project[image]" value="<%= project.image %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="project[description]" value="<%= project.description %>">
+                    <label for="oneLiner">Edit Project one line Description</label>
+                    <textarea class="form-control" rows="1" name="oneLiner" id="oneLiner" method="post" required><%= project.oneLiner %></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="description">Edit Project Full Description:</label>
+                    <textarea class="form-control" rows="10" name="project[description]" id="description" method="post" required><%= project.description %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="link">Edit Project link:</label>
+                    <input class="form-control" id="link" type="text" name="project[link]" placeholder="Add a link for more information" value="<%= project.link %>">
+                </div>
+                <div class="form-group">
+                    <label for="video">Change Project video:</label>
+                    <input class="form-control" id="video" type="text" name="project[video]" placeholder="Projects video url" value="<%= project.video %>">
+                </div>
+                <div class="form-group">
+                    <label for="money">Change Project Raise Goal:</label>
+                         <span class="form-control">$
+                            <input type="number" id="money" name="project[moneyToRaise]" placeholder="Enter the amount of money needed to be raised" value="<%= project.moneyToRaise %>" min="1000" required>
+                        </span>
+                </div>
+
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>

@@ -75,7 +75,7 @@ router.get("/:id", function(req, res){
         if(err){
             console.log(err);
         } else {
-            //render show template with that prohect
+            //render show template with that projects
             res.render("projects/show", {project: foundProject});
         }
     });

@@ -22,7 +22,7 @@
                         <li><a href="/register">Sign Up</a></li>
                     <% } else { %>
                         <% if(currentUser.isAdmin){ %>
-                            <li><a href="#">Signed In As<strong><%= currentUser.username %></strong> </a></li>
+                            <li><a href="#">Admin <strong><%= currentUser.username %></strong> </a></li>
                         <% } else{ %>
                         <li><a href="/admin">Signed In As <%= currentUser.username %> </a></li>
                       <% } %>
@@ -32,6 +32,7 @@
             </div>
         </div>
     </nav>
+
 
     <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">
@@ -43,4 +44,4 @@
                 <%= success %>
             </div>
         <% } %>
-    </div>
+    </body>
