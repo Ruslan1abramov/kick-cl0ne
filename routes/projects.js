@@ -2,7 +2,31 @@ var express         = require("express");
 var router          = express.Router();
 var Project         = require("../models/project");
 var middleware      = require("../middleware");
+var multer     = require('multer');
+var cloudinary = require('cloudinary');
 
+// =========== Image Upload Configuration =============
+//multer config
+const storage = multer.diskStorage({
+    filename: function(req, file, callback) {
+        callback(null, Date.now() + file.originalname);
+    }
+});
+const imageFilter = (req, file, cb) => {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+
+// cloudinary config
+cloudinary.config({
+    cloud_name: 'ruslan-kickclone',
+    api_key: '771449912674837',
+    api_secret: 'wparRy8UFjp2SmRrA2Z_2CaoxNA'
+});
 //INDEX - show all projects
 router.get("/", function(req,res){
      // Get all projects from DB
@@ -30,6 +54,19 @@ router.get("/funded", function(req,res){
 //CREATE - add new projcts to DB
 router.post("/insert",middleware.isLoggedIn, function(req, res){
     // get data from form and add to projects array
+    /*
+    cloudinary.uploader.upload(req.file.path, (result) => {
+        // get data from the form
+        let {  } = {
+            image: {
+                // add cloudinary public_id for the image to the campground object under image property
+                id: result.public_id,
+                // add cloudinary url for the image to the campground object under image property
+                url: result.secure_url
+            },
+
+        };
+        */
 
     var author = 
     {
