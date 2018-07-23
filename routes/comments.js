@@ -1,23 +1,13 @@
-var express         = require("express");
-var router          = express.Router({mergeParams: true});
-var Project         = require("../models/project");
-var Comment         = require("../models/comment");
-var middleware      = require("../middleware");
+const express         = require("express");
+const router          = express.Router({mergeParams: true});
+const Project         = require("../models/project");
+const Comment         = require("../models/comment");
+const middleware      = require("../middleware");
 
 // ====================
 // COMMENTS ROUTES
 // ====================
-/*
-router.get("/new", middleware.isLoggedIn, function(req, res){
-      Project.findById(req.params.id, function(err, project){
-          if(err){
-              console.log(err);
-          } else {
-               res.render("comments/new", {project: project});
-          }
-      })
-});
-*/
+
 router.post("/", middleware.isLoggedIn, function(req, res){
    //lookup Project using ID
    Project.findById(req.params.id, function(err, project){
@@ -46,19 +36,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
    });
 
 });
-/*
 
-// COMMENT EDIT ROUTE
-router.get("/:comment_id", middleware.checkCommentOwnership, function(req, res){
-   Comment.findById(req.params.comment_id, function(err, foundComment){
-      if(err){
-          res.redirect("back");
-      } else {
-        res.render("comments/", {project_id: req.params.id, comment: foundComment});
-      }
-   });
-});
-*/
 // COMMENT UPDATE
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err){

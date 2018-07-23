@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 
 // SCHEMA SETUP
-var projectSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
    owner: 			String,
    name: 			String,
    image: 			{secure_url: String, public_id : String},

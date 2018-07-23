@@ -44,13 +44,13 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
     // get data from form and add to projects array
     let noImage = {secure_url: 'https://res.cloudinary.com/ruslan-kickclone/image/upload/v1532363251/Product-Coming-Soon-image-600x600.png',
         public_id : ''};
-    var author =
+    let author =
     {
         id:           req.user._id,
         username:     req.user.username
     };
 
-    var newProject = {
+    let newProject = {
        owner:         req.user.username,
        name:          req.body.name,
        image:         req.body.posterCloud === 'none' ? noImage : getImageData(JSON.parse(req.body.posterCloud)),
@@ -144,7 +144,7 @@ router.post("/:id",middleware.isLoggedIn, function(req, res){
 // UPDATE Project ROUTE
 router.put("/:id",middleware.checkProjectOwnership, function(req, res){
     // find and update the correct project
-    var toRemoveArr = [];
+    let toRemoveArr = [];
     //handling the updated pictures
     if(req.body.project.image !== null)
         req.body.project.image = getImageData(JSON.parse(req.body.project.image));
