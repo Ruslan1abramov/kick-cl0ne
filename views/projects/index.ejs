@@ -19,19 +19,21 @@
         <% projects.forEach(function(project, pid){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                   <img src="<%= project.image.secure_url %>">
+
+                    <img  src="<%= project.image.secure_url %>"  alt="<%= project.image.public_id %>"style="width:100%;height:200px;" >
+
                    <div class="caption">
                        <h4><%= project.name %></h4>
                        <p><%= project.oneLiner %></p>
                    </div>
-	                   	<span> Time Left
-							<font color = "red" size='sm'> 
-									<label id="demo_<%=pid%>"></label>
-							</font>
-						</span>
-					<div class="caption">
+                    <span> <label>Time Left</label>
+                        <font color = "red" size='sm'>
+                                <label id="demo_<%=pid%>"></label>
+                        </font>
+                    </span>
+                    <div class="caption">
                        <h5>Raised $<%= project.moneyRaised %> Out of $<%= project.moneyToRaise %></h5>
-                   </div>	
+                   </div>
                    <p>
                        <a href="/projects/<%= project._id %>" class="btn btn-primary">More Info</a>
                    </p>

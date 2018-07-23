@@ -42,16 +42,18 @@ router.get("/funded", function(req,res){
 //CREATE - add new projcts to DB
 router.post("/insert",middleware.isLoggedIn, function(req, res){
     // get data from form and add to projects array
-    console.log("and taaaaaaaaaaaaaa", req.body.moreImages);
-    var author = 
+    let noImage = {secure_url: 'https://res.cloudinary.com/ruslan-kickclone/image/upload/v1532363251/Product-Coming-Soon-image-600x600.png',
+        public_id : ''};
+    var author =
     {
         id:           req.user._id,
         username:     req.user.username
     };
+
     var newProject = {
        owner:         req.user.username,
        name:          req.body.name,
-       image:         getImageData(req.body.posterCloud === [] ? null : JSON.parse(req.body.posterCloud)),
+       image:         req.body.posterCloud === 'none' ? noImage : getImageData(JSON.parse(req.body.posterCloud)),
        description:   req.body.description,
         oneLiner:     req.body.oneLiner,
        video:         req.body.video,
