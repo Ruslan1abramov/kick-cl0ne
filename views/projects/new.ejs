@@ -8,7 +8,8 @@
                     <input class="form-control" type="text" name="name" placeholder="Enter projects name" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="image" placeholder="Poster image url">
+                    <a href="#"  id="poster_upload_widget_opener" >Upload Poster image</a>
+                    <input type="hidden" id="posterCloud" name="posterCloud" value = "null" >
                 </div>
                 <div class="form-group">
                     <label for="oneLiner">Project one line Description</label>
@@ -19,10 +20,10 @@
                     <textarea class="form-control" rows="10" name="description" id="description" method="post" required></textarea>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="link" placeholder="Add a link for more information">
+                    <input class="form-control" type="url" name="link" placeholder="Add a link for more information">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="video" placeholder="Projects video url">
+                    <input class="form-control" type="url" name="video" placeholder="Projects video url">
                 </div>
                 <div class="form-group">
                          <span class="form-control">$
@@ -34,9 +35,8 @@
                   <input id = "dateField" type="date" name="endTime" required>
                 </div>
                 <div class="form-group">
-                     <label for="files"> Select Project images:</label>
-                     <input type="file" name="img" id="files" multiple>
-                    <p><h6>Try selecting more than one file when browsing for files.</h6></p>
+                    <a href="#"  id="upload_widget_opener" >Upload more images</a>
+                    <input type="hidden" id="moreImages" name="moreImages" value = "null">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
@@ -50,5 +50,43 @@
     //making the project raise ens date to at least 3 days
     document.getElementById("dateField").setAttribute("min", new Date(new Date().getTime() + 3*24* 60 *60*1000).toJSON().split('T')[0]);
     document.getElementById("dateField").setAttribute("value", new Date(new Date().getTime() + 3*24* 60 *60*1000).toJSON().split('T')[0]);
+</script>
+<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //apllaying first cloudinary upload widget
+    document.getElementById("poster_upload_widget_opener").addEventListener("click", function() {
+        cloudinary.openUploadWidget({
+                multiple: false,
+                cloud_name: 'ruslan-kickclone',
+                upload_preset: 'v8cwbvgj',
+                client_allowed_formats: ['png','gif', 'jpeg']},
+            function(error, result) {
+            //setting the uploaded image
+                let img = {secure_url: result[0].secure_url, public_id:  result[0].public_id};
+                document.getElementById("posterCloud").setAttribute("value", JSON.stringify(img));
+        });
+    }, false);
+
+</script>
+
+<script type="text/javascript">
+    //allaying second cloudinary upload widget
+    document.getElementById("upload_widget_opener").addEventListener("click", function() {
+        cloudinary.openUploadWidget({
+                multiple: true,
+                cloud_name: 'ruslan-kickclone',
+                upload_preset: 'v8cwbvgj',
+                client_allowed_formats: ['png','gif', 'jpeg']},
+            function(error, result) {
+            //adding the new pictures
+                let images = [];
+                result.forEach(function (pic) {
+                    images.push({secure_url: pic.secure_url, public_id:  pic.public_id});
+                });
+                console.log(error, result[0]);
+                document.getElementById("moreImages").setAttribute("value", JSON.stringify(images));
+            });
+    }, false);
+
 </script>
 <% include ../partials/footer %>

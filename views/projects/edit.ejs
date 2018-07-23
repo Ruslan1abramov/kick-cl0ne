@@ -10,7 +10,10 @@
                 </div>
                 <div class="form-group">
                     <label for="poster">Change Project poster:</label>
-                    <input class="form-control" id="poster" type="text" name="project[image]" value="<%= project.image %>">
+                    <div class="form-group">
+                        <a href="#"  id="poster_upload_widget_opener" >Upload New Poster image</a>
+                        <input type="hidden" id="posterCloud" name="project[image]" value = " <%=JSON.stringify(project.image) %>" >
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="oneLiner">Edit Project one line Description</label>
@@ -34,7 +37,30 @@
                             <input type="number" id="money" name="project[moneyToRaise]" placeholder="Enter the amount of money needed to be raised" value="<%= project.moneyToRaise %>" min="1000" required>
                         </span>
                 </div>
-
+                <div class="form-group">
+                    <div class="form-group">
+                        <a href="#"  id="upload_widget_opener" >Upload more image</a>
+                        <input type="hidden" id="moreImages" name="project[morePictures]" value = "  <%=JSON.stringify(project.morePictures) %>" >
+                    </div>
+                </div>
+                <input type="hidden" id="toRemove" name="toRemove" value="[]" >
+                <% if(project.morePictures.length >0 ) { %>
+                    <div class="thumbnail">
+                        <h4>Click on a Picture to remove it</h4>
+                        <div class="row">
+                            <% project.morePictures.forEach(function(pic,index){ %>
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                    <a  href="#removeImage"  id="removeImage">
+                                        <img src=<%= pic.secure_url %> alt="pic" style="width:100%" id="imgClickAndChange_<%=index%>">
+                                        <div class="caption"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <%})%>
+                        </div>
+                    </div>
+                <%}%>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
@@ -43,4 +69,59 @@
         </div>
     </div>
 </div>
+
+<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script>
+    var project = <%-JSON.stringify(project)%>
+    var images = project.morePictures;
+    var imagesToDel =[];
+</script>
+<script type="text/javascript">
+
+    document.getElementById("poster_upload_widget_opener").addEventListener("click", function() {
+        cloudinary.openUploadWidget({
+                multiple: false,
+                cloud_name: 'ruslan-kickclone',
+                upload_preset: 'v8cwbvgj',
+                client_allowed_formats: ['png','gif', 'jpeg']
+            },
+            function(error, result) {
+                let img = {secure_url: result[0].secure_url, public_id:  result[0].public_id};
+                document.getElementById("posterCloud").setAttribute("value", JSON.stringify(img));
+            });
+    }, false);
+
+</script>
+
+<script type="text/javascript">
+
+    document.getElementById("upload_widget_opener").addEventListener("click", function() {
+        cloudinary.openUploadWidget({
+                multiple: true,
+                cloud_name: 'ruslan-kickclone',
+                upload_preset: 'v8cwbvgj',
+            client_allowed_formats: ['png','gif', 'jpeg']},
+            function(error, result) {
+
+                result.forEach(function (pic) {
+                    console.log(pic);
+                    images.push({secure_url: pic.secure_url, public_id:  pic.public_id});
+                });
+                document.getElementById("moreImages").setAttribute("value", JSON.stringify(images));
+            });
+    }, false);
+
+</script>
+
+
+<script type="text/javascript">
+        console.log(images);
+        images.forEach(function(img,index){document.getElementById("imgClickAndChange_"+index).addEventListener("click", function() {
+            document.getElementById("imgClickAndChange_"+index).setAttribute("src", 'https://www.freepngimg.com/download/trash_can/4-2-trash-can-picture.png');
+            imagesToDel.push({secure_url: img.secure_url, public_id: img.public_id});
+            document.getElementById("toRemove").setAttribute("value", JSON.stringify(imagesToDel));
+            })
+        });
+
+</script>
 <% include ../partials/footer %>

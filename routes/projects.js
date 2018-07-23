@@ -1,25 +1,12 @@
-var express         = require("express");
-var router          = express.Router();
-var Project         = require("../models/project");
-var middleware      = require("../middleware");
-var multer     = require('multer');
-var cloudinary = require('cloudinary');
+const   express         = require("express"),
+        router          = express.Router(),
+        Project         = require("../models/project"),
+        middleware      = require("../middleware");
+        multer          = require('multer'),
+        cloudinary      = require('cloudinary');
 
 // =========== Image Upload Configuration =============
-//multer config
-const storage = multer.diskStorage({
-    filename: function(req, file, callback) {
-        callback(null, Date.now() + file.originalname);
-    }
-});
-const imageFilter = (req, file, cb) => {
-    // accept image files only
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-        return cb(new Error('Only image files are allowed!'), false);
-    }
-    cb(null, true);
-};
-const upload = multer({ storage: storage, fileFilter: imageFilter});
+
 
 // cloudinary config
 cloudinary.config({
@@ -27,6 +14,7 @@ cloudinary.config({
     api_key: '771449912674837',
     api_secret: 'wparRy8UFjp2SmRrA2Z_2CaoxNA'
 });
+
 //INDEX - show all projects
 router.get("/", function(req,res){
      // Get all projects from DB
@@ -54,20 +42,7 @@ router.get("/funded", function(req,res){
 //CREATE - add new projcts to DB
 router.post("/insert",middleware.isLoggedIn, function(req, res){
     // get data from form and add to projects array
-    /*
-    cloudinary.uploader.upload(req.file.path, (result) => {
-        // get data from the form
-        let {  } = {
-            image: {
-                // add cloudinary public_id for the image to the campground object under image property
-                id: result.public_id,
-                // add cloudinary url for the image to the campground object under image property
-                url: result.secure_url
-            },
-
-        };
-        */
-
+    console.log("and taaaaaaaaaaaaaa", req.body.moreImages);
     var author = 
     {
         id:           req.user._id,
@@ -76,7 +51,7 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
     var newProject = {
        owner:         req.user.username,
        name:          req.body.name,
-       image:         req.body.image,
+       image:         getImageData(req.body.posterCloud === [] ? null : JSON.parse(req.body.posterCloud)),
        description:   req.body.description,
         oneLiner:     req.body.oneLiner,
        video:         req.body.video,
@@ -85,6 +60,7 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
        moneyToRaise:  req.body.moneyToRaise,
        moneyRaised:   0,
        isActive:      true,
+        morePictures: getImages( req.body.moreImages === [] ? null : JSON.parse(req.body.moreImages)),
        author:        author
     };
 
@@ -99,6 +75,21 @@ router.post("/insert",middleware.isLoggedIn, function(req, res){
         }
     });
 });
+
+function getImageData( posterInfo){
+    if(posterInfo)
+        return {secure_url : posterInfo.secure_url, public_id: posterInfo.public_id};
+}
+
+function getImages( infoArray){
+    if(infoArray) {
+        let images = [];
+        infoArray.forEach(function (pic) {
+            images.push(getImageData(pic));
+        });
+        return images;
+    }
+}
 
 //NEW - show form to create new project
 router.get("/new",middleware.isLoggedIn, function(req, res){
@@ -151,6 +142,24 @@ router.post("/:id",middleware.isLoggedIn, function(req, res){
 // UPDATE Project ROUTE
 router.put("/:id",middleware.checkProjectOwnership, function(req, res){
     // find and update the correct project
+    var toRemoveArr = [];
+    //handling the updated pictures
+    if(req.body.project.image !== null)
+        req.body.project.image = getImageData(JSON.parse(req.body.project.image));
+    if(req.body.project.morePictures !== null)
+        req.body.project.morePictures = getImages( JSON.parse(req.body.project.morePictures));
+    if(req.body.toRemove !== null)
+        toRemoveArr = getImages( JSON.parse(req.body.toRemove));
+
+    console.log("to rmv", toRemoveArr);
+    console.log("all", req.body.project.morePictures);
+    toRemoveArr.forEach(el =>{
+        req.body.project.morePictures.splice(req.body.project.morePictures.indexOf(el), 1);
+        cloudinary.v2.uploader.destroy(el.public_id, function(error, result){console.log(result, error)});
+    });
+
+
+    console.log("\n\n\n\nblaaaaablaaaaa", req.body.project);
     Project.findByIdAndUpdate(req.params.id, req.body.project, function(err, updatedProject){
        if(err){
            res.redirect("/projects");
@@ -160,10 +169,15 @@ router.put("/:id",middleware.checkProjectOwnership, function(req, res){
            res.redirect("/projects/" + req.params.id);
        }
     });
+
+
 });
 
 // DESTROY Project ROUTE
 router.delete("/:id",middleware.checkProjectOwnership, function(req, res){
+    //removing all picture from cloud
+
+    //delete the project
    Project.findByIdAndRemove(req.params.id, function(err){
       if(err){
           res.redirect("/projects");

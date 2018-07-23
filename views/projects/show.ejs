@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
-                <img class="img-responsive" src="<%= project.image %>">
+                <img class="img-responsive" src="<%= project.image.secure_url %>">
                 <div class="caption">
                     <h4 class="pull-right">Raised $<%= project.moneyRaised %> From $<%= project.moneyToRaise %> Goal</h4>
                     <h4><a><%=project.name%></a></h4>
@@ -54,9 +54,11 @@
                 </div>
             </div>
             <div class="thumbnail">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="<%= project.video %>"></iframe>
-                </div>
+                <%if( project.video){ %>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="<%= project.video %>"></iframe>
+                    </div>
+                <%}%>
                 <h5><a href="<%= project.link %>">For more information</a></h5>
                 <% if(project.morePictures.length >0 ) { %>
                     <h4>Here are some more pictures</h4>
@@ -64,8 +66,8 @@
                     <% project.morePictures.forEach(function(pic){ %>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <a href="pic" target="_blank">
-                                    <img src="pic" alt="pic" style="width:100%">
+                                <a href=<%= pic.secure_url %> target="_blank">
+                                    <img src=<%= pic.secure_url %> alt="pic" style="width:100%">
                                     <div class="caption"></div>
                                 </a>
                             </div>

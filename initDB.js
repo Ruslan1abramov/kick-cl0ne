@@ -13,7 +13,7 @@ var Comment   = require("./models/comment");
 var data = [
     {   
         name:           "coffee machine", 
-        image:          "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
+        image:          {url : "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg", signature :"svsv"},
         description:    "blah blah blah",
         endTime:         new Date(),
         isActive:        true
@@ -22,7 +22,7 @@ var data = [
     {   
         owner:           "String",
         name:            "String",
-        image:           "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
+        image:           {url : "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg", signature :"svsv"},
         description:     "String",
         video:           "String",
         link:            "String", 
@@ -36,7 +36,7 @@ var data = [
 
     {   
         name:            "Car", 
-        image:           "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+        image:           {url : "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg", signature :"svsv"},
         description:     "blah blah blah",
         endTime:         "Aug 5, 2018 15:37:25",
         isActive:        true

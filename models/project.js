@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var projectSchema = new mongoose.Schema({
    owner: 			String,
    name: 			String,
-   image: 			String,
+   image: 			{secure_url: String, public_id : String},
    description: 	String,
    oneLiner: 	    String,
    video: 			String,
@@ -15,7 +15,7 @@ var projectSchema = new mongoose.Schema({
    moneyRaised: 	Number,
    isActive:        Boolean,
    donors: 			[String],
-   morePictures:    [String],
+   morePictures:    [{secure_url: String, public_id : String}],
 
 
    author: {
