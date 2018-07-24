@@ -153,15 +153,18 @@ router.put("/:id",middleware.checkProjectOwnership, function(req, res){
     if(req.body.toRemove !== null)
         toRemoveArr = getImages( JSON.parse(req.body.toRemove));
 
-    console.log("to rmv", toRemoveArr);
-    console.log("all", req.body.project.morePictures);
     toRemoveArr.forEach(el =>{
-        req.body.project.morePictures.splice(req.body.project.morePictures.indexOf(el), 1);
-        cloudinary.v2.uploader.destroy(el.public_id, function(error, result){console.log(result, error)});
+        req.body.project.morePictures.forEach((pic, index)=>{
+            if(el.public_id === pic.public_id){
+                console.log("taaaaaaaaaaaaaaa" , el , req.body.project.morePictures[index]);
+                cloudinary.v2.uploader.destroy(el.public_id, function(error, result){console.log(result, error)});
+                req.body.project.morePictures.splice(index, 1);
+            }
+        });
+
     });
 
 
-    console.log("\n\n\n\nblaaaaablaaaaa", req.body.project);
     Project.findByIdAndUpdate(req.params.id, req.body.project, function(err, updatedProject){
        if(err){
            res.redirect("/projects");
@@ -178,7 +181,12 @@ router.put("/:id",middleware.checkProjectOwnership, function(req, res){
 // DESTROY Project ROUTE
 router.delete("/:id",middleware.checkProjectOwnership, function(req, res){
     //removing all picture from cloud
-
+    Project.findById(req.params.id, function(err, foundProject){
+        foundProject.morePictures.forEach(pic => {
+            cloudinary.v2.uploader.destroy(pic.public_id, function(error, result){console.log(result, error)});
+        });
+        cloudinary.v2.uploader.destroy(foundProject.image.public_id, function(error, result){console.log(result, error)});
+    })
     //delete the project
    Project.findByIdAndRemove(req.params.id, function(err){
       if(err){

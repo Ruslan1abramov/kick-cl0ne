@@ -122,12 +122,12 @@
 
 
 <script type="text/javascript">
-        console.log(images);
         images.forEach(function(img,index){document.getElementById("imgClickAndChange_"+index).addEventListener("click", function() {
             document.getElementById("imgClickAndChange_"+index).setAttribute("src", 'https://www.freepngimg.com/download/trash_can/4-2-trash-can-picture.png');
             imagesToDel.push({secure_url: img.secure_url, public_id: img.public_id});
+            console.log(img);
             document.getElementById("toRemove").setAttribute("value", JSON.stringify(imagesToDel))
-            alert("Picture removed!");
+
             })
         });
 
