@@ -2,7 +2,6 @@ const   express         = require("express"),
         router          = express.Router(),
         Project         = require("../models/project"),
         middleware      = require("../middleware");
-        multer          = require('multer'),
         cloudinary      = require('cloudinary');
 
 // =========== Image Upload Configuration =============

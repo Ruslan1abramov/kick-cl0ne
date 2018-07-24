@@ -8,13 +8,10 @@ const express     	= require("express"),
     passport    	= require("passport"),
     LocalStrategy 	= require("passport-local"),
     methodOverride 	= require("method-override"),
-    Project  		= require("./models/project"),
-    Comment     	= require("./models/comment"),
     User        	= require("./models/user"),
-    initDB			= require("./initDB"),
-    bcrypt          = require('bcrypt');
+    initDB			= require("./initDB");
 
-//requring routes
+//require routes
 const   commentRoutes    = require("./routes/comments"),
         projectRoutes 	 = require("./routes/projects"),
         indexRoutes      = require("./routes/index");
