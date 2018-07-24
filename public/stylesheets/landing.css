@@ -10,10 +10,12 @@ body {
 }
 
 #landing-header h1 {
-  color: #fff;
+  font-size: 120px;
+  color: #D3D3D3;
 }
 #landing-header h2 {
-  color: #fff;
+  font-size: 45px;
+  color: #D3D3D3;
 }
 
 .slideshow { 
@@ -43,18 +45,18 @@ body {
 }
 
 .slideshow li:nth-child(1) { 
-  background-image: url(https://ksr-ugc.imgix.net/assets/017/217/981/df4d93e9f6f045bb20387235eb5cc3b8_original.png?crop=faces&w=1552&h=873&fit=crop&v=1499191269&auto=format&q=92&s=6c3efda764552c07273ee6baab71306a) 
+  background-image: url(https://ksr-ugc.imgix.net/assets/021/438/210/eeec77c77043da1566a2c4ccf16f5fb5_original.jpg?w=680&fit=max&v=1527878511&auto=format&q=92&s=d21b3b4a97b943ca98fd6ccb9ec63014)
 }
 .slideshow li:nth-child(2) { 
-  background-image: url(https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/11/Zano-drone-1200x600.jpg);
+  background-image: url(https://ksr-ugc.imgix.net/assets/021/985/515/b15bf80b206e4df5374a7b8f6233ef33_original.JPG?w=680&fit=max&v=1532308096&auto=format&q=92&s=5117edd872e90d7aa623727c488ac7f4);
   animation-delay: 10s; 
 }
 .slideshow li:nth-child(3) { 
-  background-image: url(https://cadeauconsultant.nl/wp-content/uploads/2017/12/Ostrich-Pillow-voor-haar-cadeau.jpg);
+  background-image: url(https://ksr-ugc.imgix.net/assets/013/516/149/893c4010628f8d90852e756da5b8deb1_original.gif?w=680&fit=max&v=1472328344&auto=format&gif-q=50&q=92&s=d6889f29a6140fb99941fc944778aae0);
   animation-delay: 20s; 
 }
 .slideshow li:nth-child(4) { 
-  background-image: url(https://ksr-ugc.imgix.net/assets/011/364/958/aa5f379413c838d66ce78eee5fae97ce_original.jpg?crop=faces&w=1552&h=873&fit=crop&v=1463681578&auto=format&q=92&s=f8f838d2e9c69ede3524ff9b56356553);
+  background-image: url(https://ksr-ugc.imgix.net/assets/021/612/925/53acd7f701d8786907b43cb0f5cca8c0_original.gif?w=680&fit=max&v=1529281167&auto=format&gif-q=50&q=92&s=4958074decf318aa843c5a7a7adc71ca);
   animation-delay: 30s; 
 }
 .slideshow li:nth-child(5) { 

@@ -52,6 +52,7 @@
     document.getElementById("dateField").setAttribute("value", new Date(new Date().getTime() + 3*24* 60 *60*1000).toJSON().split('T')[0]);
 </script>
 <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script >var images =[];</script>
 <script type="text/javascript">
     //apllaying first cloudinary upload widget
     document.getElementById("poster_upload_widget_opener").addEventListener("click", function() {
@@ -64,6 +65,7 @@
             //setting the uploaded image
                 let img = {secure_url: result[0].secure_url, public_id:  result[0].public_id};
                 document.getElementById("posterCloud").setAttribute("value", JSON.stringify(img));
+                alert("Successfully uploaded a poster picture\nIf you want to change it click the button again");
         });
     }, false);
 
@@ -79,12 +81,11 @@
                 client_allowed_formats: ['png','gif', 'jpeg']},
             function(error, result) {
             //adding the new pictures
-                let images = [];
                 result.forEach(function (pic) {
                     images.push({secure_url: pic.secure_url, public_id:  pic.public_id});
                 });
-                console.log(error, result[0]);
                 document.getElementById("moreImages").setAttribute("value", JSON.stringify(images));
+                alert("Successfully uploaded  pictures\nIf you want to add more click the button again");
             });
     }, false);
 

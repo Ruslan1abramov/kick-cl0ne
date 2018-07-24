@@ -93,6 +93,7 @@
             function(error, result) {
                 let img = {secure_url: result[0].secure_url, public_id:  result[0].public_id};
                 document.getElementById("posterCloud").setAttribute("value", JSON.stringify(img));
+                alert("Successfully uploaded a poster picture\n If you want to change it click the button again");
             });
     }, false);
 
@@ -113,6 +114,7 @@
                     images.push({secure_url: pic.secure_url, public_id:  pic.public_id});
                 });
                 document.getElementById("moreImages").setAttribute("value", JSON.stringify(images));
+                alert("Successfully uploaded  pictures\n If you want to add more click the button again");
             });
     }, false);
 
@@ -124,7 +126,8 @@
         images.forEach(function(img,index){document.getElementById("imgClickAndChange_"+index).addEventListener("click", function() {
             document.getElementById("imgClickAndChange_"+index).setAttribute("src", 'https://www.freepngimg.com/download/trash_can/4-2-trash-can-picture.png');
             imagesToDel.push({secure_url: img.secure_url, public_id: img.public_id});
-            document.getElementById("toRemove").setAttribute("value", JSON.stringify(imagesToDel));
+            document.getElementById("toRemove").setAttribute("value", JSON.stringify(imagesToDel))
+            alert("Picture removed!");
             })
         });
 
