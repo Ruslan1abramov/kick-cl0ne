@@ -1,13 +1,13 @@
 # kick-cl0ne
 This project was made as a part of a school project in web programing  
 The project was made using node.js  
-###Installation notes:  
+### Installation notes:  
 &nbsp;&nbsp;&nbsp;&nbsp;1. make sure that you have mongodb client on your machine  
 &nbsp;&nbsp;&nbsp;&nbsp;2. for password encryption i used bcrypt , in order to install you need first to install glob  
         npm install glob -g --save  
 &nbsp;&nbsp;&nbsp;&nbsp;3. installing the dependencies npm install  
 &nbsp;&nbsp;&nbsp;&nbsp;4. i will provide you a file with my environmental variables (port number, admin password)  
-###npm libraries:  
+### npm libraries:  
 &nbsp;&nbsp;&nbsp;&nbsp;1. express      - used it control the routes and to render the client with information  
 &nbsp;&nbsp;&nbsp;&nbsp;2. ejs          - Embedded JavaScript templates i used it to create the views and easily combining html and js  
 &nbsp;&nbsp;&nbsp;&nbsp;3. mongoose     - used it to mange my date base  
@@ -19,7 +19,7 @@ The project was made using node.js
 &nbsp;&nbsp;&nbsp;&nbsp;8. bcrypt       - was used for password encryption  
 &nbsp;&nbsp;&nbsp;&nbsp;9. cloudinary   - this amazing third party cloud platform allows easy image management i used it on server side  
                       just for deleting images, it's main used was uploading pictures using their widget from the client side  
-###css: most of my project was made with bootstrap, i also used a bit of google fonts and some background gradients i found online  
+### css: most of my project was made with bootstrap, i also used a bit of google fonts and some background gradients i found online  
   
 in order to build this site i used 3 major online guides:  
     the main one is a udemy course called "the web developer bootcamp",  
@@ -28,7 +28,7 @@ in order to build this site i used 3 major online guides:
    
 As for now the web works fine but i have'nt tested it on large scale so it is hard for me to say how it will behave,  
 my guess is that it will have some hard times dealing with many users as i'm still a NEWBIE to this.  
-####Some known bugs:  
+#### Some known bugs:  
 &nbsp;&nbsp;&nbsp;&nbsp;   1. each time you press the upload poster image link it overrides the poster you had before  
 &nbsp;&nbsp;&nbsp;&nbsp;    2. in order for the client to show the video link it must be an embedded link  
 &nbsp;&nbsp;&nbsp;&nbsp;    3. it's not a bug per se but in order for me to manage the projects i made a demon that runs every 10 minutes to  
@@ -36,7 +36,7 @@ my guess is that it will have some hard times dealing with many users as i'm sti
 &nbsp;&nbsp;&nbsp;&nbsp;    4. in landing page i used a css slideshow it sometimes takes to long to load so this is one problem i have  
 &nbsp;&nbsp;&nbsp;&nbsp;    5. the body background is a moving liner gradient which also might be a little slow  
   
-####some notes:  
+#### some notes:  
 &nbsp;&nbsp;&nbsp;&nbsp;    1. in order to become admin you need to press your user name this will direct to the admin registration form  
 &nbsp;&nbsp;&nbsp;&nbsp;    2. i used ajax where i thougt it is needed, after using it on the login and registration views i thought to myself  
         that there is no need to use ajax because we are leaving the page anyways therefore i didn't use ajax in the  
