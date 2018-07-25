@@ -19,9 +19,10 @@ The project was made using node.js
 &nbsp;&nbsp;&nbsp;&nbsp;8. bcrypt       - was used for password encryption  
 &nbsp;&nbsp;&nbsp;&nbsp;9. cloudinary   - this amazing third party cloud platform allows easy image management i used it on server side  
                       just for deleting images, it's main used was uploading pictures using their widget from the client side  
-### css: most of my project was made with bootstrap, i also used a bit of google fonts and some background gradients i found online  
+### css:
+most of my project was made with bootstrap, i also used a bit of google fonts and some background gradients i found online  
   
-in order to build this site i used 3 major online guides:  
+## In order to build this site i used 3 major online guides:  
     the main one is a udemy course called "the web developer bootcamp",  
     other than that i used http://davismj.me/blog/bcrypt/ ,  
     W3 school , stackoverflow, and a few youtube class  
