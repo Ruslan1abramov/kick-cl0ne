@@ -23,7 +23,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(require('express-domain-middleware'));
 app.use(methodOverride("_method"));
 app.use(flash());
-initDB();
+//initDB();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
