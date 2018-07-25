@@ -33,3 +33,12 @@ Some known bugs:
     2. in order for the client to show the video link it must be an embedded link
     3. it's not a bug per se but in order for me to manage the projects i made a demon that runs every 10 minutes to
         check whether the project dead line is over, so an expired project can be shown for 10 minutes before it gets handheld
+    4. in landing page i used a css slideshow it sometimes takes to long to load so this is one problem i have
+    5. the body background is a moving liner gradient which also might be a little slow
+
+some notes:
+    1. in order to become admin you need to press your user name this will direct to the admin registration form
+    2. i used ajax where i thougt it is needed, after using it on the login and registration views i thought to myself
+        that there is no need to use ajax because we are leaving the page anyways therefore i didn't use ajax in the
+        new project and edit project views i did however used it in the show project view in order to process the donation
+        but for the comments i found it very difficult for me to update the new comment collapse bar so i left it as is

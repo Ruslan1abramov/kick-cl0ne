@@ -124,16 +124,20 @@ router.post("/:id",middleware.isLoggedIn, function(req, res){
     // find and update the correct project
     Project.findById(req.params.id, function(err, foundProject){
         console.log(foundProject);
+        let newDonor = null;
         foundProject.moneyRaised += Number(req.body.donation);
         if(!foundProject.donors.includes(req.user.username))
+        {
             foundProject.donors.push(req.user.username);
+            newDonor = req.user.username;
+        }
         foundProject.save(function(err, updated){
             if(err){
-                res.redirect("/projects");
+                res.render("/projects");
             } else {
                 //redirect somewhere(show page)
                 console.log(updated);
-                res.redirect("/projects/" + req.params.id);
+                res.send({moneyRaised: updated.moneyRaised, newDonor: newDonor});
             }
         });
 

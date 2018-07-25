@@ -28,15 +28,25 @@ function authenticate(passport) {
     });
 
     // Login Handler
-    router.post(
-        "/login",
-        passport.authenticate("local", {
-            successRedirect: "/projects",
-            failureRedirect: "/login",
-            failureFlash: true,
-            successFlash: true
-        })
-    );
+    router.post('/login', function(req, res, next) {
+        passport.authenticate('local', function(err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            /*login failed*/
+            if (!user) {
+                res.status(405);
+            }
+            req.logIn(user, function(err) {
+                if (err) {
+                    return next(err);
+                }
+                res.send(
+                    {redirect: '/projects'}
+                    );
+            });
+        })(req, res, next);
+    });
 
     // Register View
     router.get("/register", loggedOutOnly, (req, res) => {
@@ -46,18 +56,23 @@ function authenticate(passport) {
     // Register Handler
     router.post("/register", (req, res, next) => {
         const { username, password } = req.body;
+        console.log("sssssssssssssssss" , res);
         User.create({ username, password })
             .then(user => {
                 req.login(user, err => {
                     if (err) next(err);
-                    else res.redirect("/projects");
+                    else{
+                        res.send({redirect: '/projects'});
+                    }
                 });
             })
             .catch(err => {
                 if (err.name === "ValidationError") {
                     console.log('TAAAAAAAAAAAAAAAAAAAAAAAAAAA');
                     req.flash("error", "Sorry, that username is already taken.");
-                    res.redirect("/register");
+                    res.status(406);
+                    res.send({redirect: '/register', error: "Sorry, that username is already taken"});
+
                 } else next(err);
             });
     });
