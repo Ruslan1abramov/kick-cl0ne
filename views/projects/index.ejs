@@ -29,7 +29,7 @@
                    </div>
                     <span> <label>Time Left</label>
                         <font color = "red" size='sm'>
-
+                            <label id="demo_<%=pid%>"></label>
                         </font>
                     </span>
                     <div class="caption">
@@ -42,9 +42,9 @@
             </div>
         <% }); %>
         <script>
-        //var projects = <%- JSON.stringify(projects) %>
+        var projects = <%- JSON.stringify(projects) %>
         </script>
-       <script/>/ src="/scripts/timer.js"></script>
+       <script src="/scripts/timer.js"></script>
     </div>
 </div>
 

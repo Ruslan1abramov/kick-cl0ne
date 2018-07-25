@@ -16,7 +16,7 @@ const   commentRoutes    = require("./routes/comments"),
         projectRoutes 	 = require("./routes/projects"),
         indexRoutes      = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/kick_clone");
+mongoose.connect("mongodb://heroku_95w03wd1:ebj0k6eh1duo9aqmvc35gl7393@ds153851.mlab.com:53851/heroku_95w03wd1");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
