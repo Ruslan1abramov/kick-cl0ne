@@ -54,7 +54,10 @@ a:visited {
 .btn-b-mg {
     margin-bottom: 20px;
 }
-
+.row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
 /* image stying*/
 .thumbnail img {
     width: 100%;
@@ -64,7 +67,9 @@ a:visited {
     padding: 10px;
     background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     border: #c3cfe2;
+    height: 100%;
 }
+
 
 /*  logo */
 span .align-bottom {
