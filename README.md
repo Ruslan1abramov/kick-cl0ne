@@ -42,3 +42,6 @@ some notes:
         that there is no need to use ajax because we are leaving the page anyways therefore i didn't use ajax in the
         new project and edit project views i did however used it in the show project view in order to process the donation
         but for the comments i found it very difficult for me to update the new comment collapse bar so i left it as is
+    3. the server is online working at: https://kickcl0ne-ruslan.herokuapp.com
+    4. the admin code is : afeka
+    5. runing the server on your local host on port 3000 and setting ENV_DB to your mongo local db
