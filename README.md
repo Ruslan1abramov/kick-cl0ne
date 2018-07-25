@@ -23,9 +23,9 @@ The project was made using node.js
 most of my project was made with bootstrap, i also used a bit of google fonts and some background gradients i found online  
   
 ## In order to build this site i used 3 major online guides:  
-    the main one is a udemy course called "the web developer bootcamp",  
-    other than that i used http://davismj.me/blog/bcrypt/ ,  
-    W3 school , stackoverflow, and a few youtube class  
+   The main one is a udemy course called "the web developer bootcamp",  
+   other than that i used http://davismj.me/blog/bcrypt/   
+   W3 school , stackoverflow, and a few youtube class  
    
 As for now the web works fine but i have'nt tested it on large scale so it is hard for me to say how it will behave,  
 my guess is that it will have some hard times dealing with many users as i'm still a NEWBIE to this.  
