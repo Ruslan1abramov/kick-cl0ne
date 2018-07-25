@@ -57,6 +57,7 @@ a:visited {
 .row.display-flex {
     display: flex;
     flex-wrap: wrap;
+    padding: 10px;
 }
 /* image stying*/
 .thumbnail img {
