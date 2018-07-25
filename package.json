@@ -4,8 +4,7 @@
   "description": "kick starter clone",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ruslan Abramov",
   "license": "ISC",
