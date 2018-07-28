@@ -15,9 +15,20 @@
         <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
         <!-- LOAD ANGULAR -->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+        <style>
+            .affix {
+                position: sticky;
+                top:0;
+                width: 100%;
+                z-index: 9999 !important;
+            }
+
+
+        </style>
     </head>
     <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-expand-md" data-spy="affix">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">KickCl0ne</a>
