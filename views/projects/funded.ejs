@@ -12,11 +12,12 @@
 
     <div id="ruslan" class="row text-center" x-ta="<%= funded.length %>" style="display:flex; flex-wrap: wrap;">
         <% funded.forEach(function(fundedP, pid){ %>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6" style="margin-top: 10px;margin-bottom: 10px;">
             <div class="thumbnail">
-                <img src="<%= fundedP.image %>">
+                <img src="<%= fundedP.image.secure_url %>" alt="<%= fundedP.image.public_id %>" style="width:100%;height:200px;">
                 <div class="caption">
                     <h4><%= fundedP.name %></h4>
+                    <p><%= fundedP.oneLiner %></p>
                 </div>
                 <div class="caption">
                     <h5>Raised $<%= fundedP.moneyRaised %> Out of $<%= fundedP.moneyToRaise %></h5>
